@@ -1,5 +1,6 @@
 package com.example.landapp_genie
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.landapp_genie.adapters.RoomAdapter
@@ -27,5 +28,17 @@ class MainActivity : AppCompatActivity() {
 
         mRoomAdapter = RoomAdapter(this, R.layout.room_list_item, mRoomList)
         roomListView.adapter = mRoomAdapter
+
+        // 방 목록 클릭 시 방에 대한 정보를 가지고 상세하면으로 이동
+        roomListView.setOnItemClickListener { parent, view, position, id ->
+
+            val clickedRoom = mRoomList[position]
+
+            val myIntent = Intent(this, ViewRoomDetailActivity::class.java)
+
+            myIntent.putExtra("room", clickedRoom)
+
+            startActivity(myIntent)
+        }
     }
 }
